@@ -1,15 +1,21 @@
 package handler
 
 import (
+	"github.com/unrolled/render"
 	"net/http"
-	"html/template"
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request){
-	// テンプレート読み込み
-	t := template.Must(template.ParseFiles("templates/Index.html"))
-	// テンプレートを描画
-	if err := t.Execute(w, nil); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+
+
+	rendering(w, "index", nil)
+}
+
+//httpステータス200でHTMLレンダリングする
+func rendering(w http.ResponseWriter, templateName string, data interface{}) {
+	re := render.New(render.Options{
+		Extensions: []string{".html"},
+		Charset:    "UTF-8",
+	})
+	re.HTML(w, http.StatusOK, templateName, data)
 }
