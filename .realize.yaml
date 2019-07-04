@@ -1,0 +1,23 @@
+settings:
+  legacy:
+    force: false
+    interval: 0s
+schema:
+- name: faveit
+  path: .
+  commands:
+    install:
+      status: true
+      method: go build -o faveit
+    run:
+      status: true
+      method: ./faveit
+  watcher:
+    extensions:
+    - go
+    paths:
+    - /
+    ignored_paths:
+    - .git
+    - .realize
+    - vendor
